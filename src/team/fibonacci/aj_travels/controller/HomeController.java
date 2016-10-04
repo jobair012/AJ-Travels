@@ -14,6 +14,7 @@ public class HomeController {
 		
 		ModelAndView model = new ModelAndView("home");
 		
-		return model;
+		return model; 
+		
 	}
 }
