@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service
+				data-source-ref="dataSource" id="jdbcUserService" authorities-by-username-query="SELECT username, role FROM User WHERE username = ?"
+				users-by-username-query="SELECT username, password, enabled FROM User WHERE username = ?" />			
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+	<security:http use-expressions="true">
+		<security:form-login login-page="/login"
+			password-parameter="password" username-parameter="username"
+			default-target-url="/dashboard" />
+		<security:intercept-url pattern="/resources/**" access="permitAll" />
+		<security:intercept-url pattern="/dashboard" access="hasRole('ROLE_ADMIN')" />
+		<security:logout logout-url="/logout" logout-success-url="/" />
+		<security:csrf disabled="true" />
+		
+		<security:remember-me key="appKey" remember-me-parameter="remember" user-service-ref="jdbcUserService" />
+	</security:http>
+</beans>
