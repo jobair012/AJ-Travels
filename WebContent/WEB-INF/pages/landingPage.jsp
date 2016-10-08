@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     
 <!DOCTYPE html>
 
@@ -15,10 +15,10 @@
    	<link href="${pageContext.request.contextPath}/resources/lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/aj_travels/css/landing.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/lib/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/resources/common/css/landing-loading-bar.css" rel="stylesheet" />
+	<%-- <link href="${pageContext.request.contextPath}/resources/common/css/landing-loading-bar.css" rel="stylesheet" /> --%>
   </head>
   <body>
-	<div class="container" id="container" style="display:none;">
+	<div class="container" id="container">
 		<header>
 			<!-- Main comapny header -->
 			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -43,20 +43,27 @@
 						</div>     
 						<div class="panel-body" >
 							<div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-								<form id="loginform" class="form-horizontal" role="form">
+								<form id="loginform" class="form-horizontal" action="${pageContext.request.contextPath}/login" method="post" role="form" >
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user"></i></span>
-									<input id="login-username" type="text" class="form-control" name="username" value="" placeholder="username or email">                                        
+									<input id="login-username" type="text" class="form-control" name="username" value="" placeholder="Username">                                        
 								</div>
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-									<input id="login-password" type="password" class="form-control" name="password" placeholder="password">
+									<input id="login-password" type="password" class="form-control" name="password" placeholder="Password">
 								</div>
+								<div class="alert-danger" style="text-align: center;">
+									<c:if test="${param.error != null}">
+										<c:out value="Incorrect Username or Password Provided" />										
+									</c:if>									
+								</div>
+								<br />
 								<div class="input-group col-xs-12 text-center login-action">
 								  <div class="checkbox">
 									<label>
-									  <input id="login-remember" type="checkbox" name="remember" value="1" style="margin-top: 10px;"> Remember me &nbsp;
-									  <span id="btn-login"><a href="#" class="btn btn-success">Login  </a></span>
+									  <input id="login-remember" type="checkbox" name="remember" style="margin-top: 10px;"> Remember me &nbsp;
+									  <!-- <span id="btn-login"><a href="#" class="btn btn-success">Login  </a></span> -->
+									  <input type="submit" id="btn-login" class="btn btn-success" value="Login"/>
 									</label>
 								  </div>
 								</div>
@@ -86,11 +93,12 @@
 	<script src="${pageContext.request.contextPath}/resources/common/js/jquery-3.1.0.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 
-	<script>
+	<script src="${pageContext.request.contextPath}/resources/aj_travels/js/ajSecurity.js"></script>
+	<!-- <script>
 		Pace.on('hide', function(){
 		   $("#container").fadeIn('1000');
 		});
 		
-	</script>
+	</script> -->
   </body>
 </html>
