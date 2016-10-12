@@ -68,10 +68,10 @@
                             <a href="#"><i class="fa fa-users fa-fw"></i> Parties<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="panels-wells.html">Individuals</a>
+                                    <a href="#">Individuals</a>
                                 </li>
                                 <li>
-                                    <a href="buttons.html">Companies</a>
+                                    <a href="#">Companies</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -81,10 +81,10 @@
                             <a href="#"><i class="fa fa-empire fa-fw"></i> Administrative<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="blank.html">Create Admin</a>
+                                    <a href="${pageContext.request.contextPath}/admin/create">Create Admin</a>
                                 </li>
                                 <li>
-                                    <a href="login.html">Role Management</a>
+                                    <a href="#">Role Management</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
