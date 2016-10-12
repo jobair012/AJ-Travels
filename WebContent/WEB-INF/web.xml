@@ -19,6 +19,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath:team/fibonacci/aj_travels/config/dao-context.xml
+			classpath:team/fibonacci/aj_travels/config/service-context.xml
 			classpath:team/fibonacci/aj_travels/config/security-context.xml
 		</param-value>
 	</context-param>
