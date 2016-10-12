@@ -18,4 +18,14 @@
 	<definition name="dashboard" extends="aj_travels.base">
 		<put-attribute name="title" value="AJ-Tours &amp; Travels - Dashboard" />
 	</definition>
+	
+	<definition name="admin" extends="aj_travels.base">
+		<put-attribute name="title" value="AJ-Tours &amp; Travels - Administrative" />
+		<put-attribute name="content" value="/WEB-INF/tiles/admin.jsp" />
+	</definition>
+	
+	<definition name="adminCreationForm" extends="aj_travels.base">
+		<put-attribute name="title" value="AJ-Tours &amp; Travels - Admin Creation Form" />
+		<put-attribute name="content" value="/WEB-INF/tiles/adminCreationForm.jsp" />
+	</definition>
 </tiles-definitions>
