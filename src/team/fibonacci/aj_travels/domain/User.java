@@ -33,7 +33,7 @@ public class User {
 	@Column(length = 45)
 	private String lastUpdatedBy;
 
-	private Timestamp lastUpdatedDate;
+	private Timestamp lastUpdatedStamp;
 
 	public User() {
 	}
@@ -102,11 +102,11 @@ public class User {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
 
-	public Timestamp getLastUpdatedDate() {
-		return lastUpdatedDate;
+	public Timestamp getLastUpdatedStamp() {
+		return lastUpdatedStamp;
 	}
 
-	public void setLastUpdatedDate(Timestamp lastUpdatedDate) {
-		this.lastUpdatedDate = lastUpdatedDate;
+	public void setLastUpdatedStamp(Timestamp lastUpdatedStamp) {
+		this.lastUpdatedStamp = lastUpdatedStamp;
 	}
 }

@@ -1,5 +1,7 @@
 package team.fibonacci.aj_travels.domain;
 
+import java.sql.Timestamp;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +18,7 @@ public class UserDetail {
 
 	@Id
 	@GeneratedValue
-	private Integer userDetailId;
+	private Long userDetailId;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "username")
@@ -31,6 +33,48 @@ public class UserDetail {
 	@Column(nullable = false, length = 45)
 	private String phoneNo;
 
+	@Column(length = 45)
+	private String createdBy;
+
+	private Timestamp createdStamp;
+
+	@Column(length = 45)
+	private String lastUpdatedBy;
+
+	private Timestamp lastUpdatedStamp;
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Timestamp getCreatedStamp() {
+		return createdStamp;
+	}
+
+	public void setCreatedStamp(Timestamp createdStamp) {
+		this.createdStamp = createdStamp;
+	}
+
+	public String getLastUpdatedBy() {
+		return lastUpdatedBy;
+	}
+
+	public void setLastUpdatedBy(String lastUpdatedBy) {
+		this.lastUpdatedBy = lastUpdatedBy;
+	}
+
+	public Timestamp getLastUpdatedStamp() {
+		return lastUpdatedStamp;
+	}
+
+	public void setLastUpdatedStamp(Timestamp lastUpdatedStamp) {
+		this.lastUpdatedStamp = lastUpdatedStamp;
+	}
+
 	public UserDetail() {
 	}
 
@@ -38,11 +82,11 @@ public class UserDetail {
 		return user.getUsername();
 	}
 
-	public Integer getUserDetailId() {
+	public Long getUserDetailId() {
 		return userDetailId;
 	}
 
-	public void setUserDetailId(Integer userDetailId) {
+	public void setUserDetailId(Long userDetailId) {
 		this.userDetailId = userDetailId;
 	}
 
