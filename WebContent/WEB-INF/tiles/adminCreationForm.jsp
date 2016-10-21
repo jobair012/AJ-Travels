@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <div id="page-wrapper">
 	<!-- <div class="row">
@@ -19,7 +20,7 @@
 	
 	<br />
 
-	<form class="form-horizontal" action="${pageContext.request.contextPath}/admin/doCreateOrUpdate" method="post">
+	<form:form class="form-horizontal" action="${pageContext.request.contextPath}/admin/doCreateOrUpdate" method="POST" commandName="user">
 		<fieldset>
 		
 		<!-- Form Name -->
@@ -27,82 +28,87 @@
 		
 		<!-- Text input-->
 		<div class="form-group">
-		  <label class="col-md-2 control-label" for="name">Name</label>  
+		  <label class="col-md-2 control-label" for="name">Name *</label>  
 		  <div class="col-md-6">
-		  <input id="name" name="name" placeholder="Name" class="form-control input-md" type="text">
-		    
+		  	<form:input id="name" name="name" placeholder="Name" class="form-control input-md" type="text"  path="userDetail.name" />
+		    <form:errors path="userDetail.name" cssClass="alert-danger"></form:errors>
 		  </div>
 		</div>
 		
 		<!-- Text input-->
 		<div class="form-group">
-		  <label class="col-md-2 control-label" for="email">Email</label>
+		  <label class="col-md-2 control-label" for="email">Email *</label>
 		  <div class="col-md-6">
-		  <input id="email" name="email" placeholder="Email" class="form-control input-md" type="email">
-		    
+		  	<form:input id="email" name="email" placeholder="Email" class="form-control input-md" type="email"  path="userDetail.email"/>
+		    <form:errors path="userDetail.email" cssClass="alert-danger"></form:errors>
 		  </div>
 		</div>
 		
 		<!-- Text input-->
 		<div class="form-group">
-		  <label class="col-md-2 control-label" for="phoneNo">Contact No.</label>
+		  <label class="col-md-2 control-label" for="phoneNo">Contact No. *</label>
 		  <div class="col-md-6">
-		  <input id="phoneNo" name="phoneNo" placeholder="Contact No." class="form-control input-md" type="text">
-		    
+		  	<form:input id="phoneNo" name="phoneNo" placeholder="Contact No." class="form-control input-md" type="text"  path="userDetail.phoneNo"/>
+		    <form:errors path="userDetail.phoneNo" cssClass="alert-danger"></form:errors>
 		  </div>
 		</div>
 		
 		<!-- Text input-->
 		<div class="form-group">
-		  <label class="col-md-2 control-label" for="username">Username</label>
+		  <label class="col-md-2 control-label" for="username">Username *</label>
 		  <div class="col-md-6">
-		  <input id="username" name="username" placeholder="Username" class="form-control input-md" type="text">
-		    
+		  	<form:input id="username" name="username" placeholder="Username" class="form-control input-md" type="text"  path="username" onchange="javascript:checkDuplicateUsername();"/>
+		   	<form:errors path="username" cssClass="alert-danger"></form:errors>
+		   	<div id="userExists"></div>		   
 		  </div>
+		  
 		</div>
 		
 		<!-- Password Field-->
 		<div class="form-group">
-		  <label class="col-md-2 control-label" for="password">Password</label>  
+		  <label class="col-md-2 control-label" for="password">Password *</label>  
 		  <div class="col-md-6">
-		  <input id="password" name="password" placeholder="Password" class="form-control input-md" type="password">
-		    
+		  	<form:input id="password" name="password" placeholder="Password" class="form-control input-md" type="password"  path="password" />
+		    <form:errors path="password" cssClass="alert-danger"></form:errors>
 		  </div>
 		</div>
 		
 		<!-- Confirm Password Field-->
 		<div class="form-group">
-		  <label class="col-md-2 control-label" for="confirmPassword">Confirm Password</label>  
+		  <label class="col-md-2 control-label" for="confirmPassword">Confirm Password *</label>  
 		  <div class="col-md-6">
-		  <input id="confirmPassword" name="confirmPassword" placeholder="Confirm Pasword" class="form-control input-md" type="password">
-		    
+		  	<form:input id="confirmPassword" name="confirmPassword" placeholder="Confirm Pasword" class="form-control input-md" type="password"  path="" onkeyup="javascript:checkPasswordMatch();" onchange="javascript:checkPasswordMatch2();"/>
+		  	<div id="passwordMismatch">																										
 		  </div>
-		</div>
+		  </div>
+		</div>				
 		
 		<!-- Select Basic -->
 		<div class="form-group">
-		  <label class="col-md-2 control-label" for="selectbasic">Role</label>
+		  <label class="col-md-2 control-label" for="selectbasic">Role *</label>
 		  <div class="col-md-4">
-		    <select id="role" name="role" class="form-control">
-		      <option value="ROLE_USER">User</option>
-		      <option value="ROLE_ADMIN">Admin</option>      
-		    </select>
+		  	<form:select id="role" name="role" class="form-control"  path="role">
+		  		<option value="">Select Role</option>
+		  		<c:forEach items="${userRole}" var="role">		  		
+		      		<option value="${role.value}">${role.label}</option>    		    
+		  		</c:forEach>
+		  	</form:select>	
+		  	<form:errors path="role" cssClass="alert-danger"></form:errors>	   
 		  </div>
 		</div>
 		
 		<!-- Multiple Radios (inline) -->
 		<div class="form-group">
-		  <label class="col-md-2 control-label" for="status">Status</label>
+		  <label class="col-md-2 control-label" for="status">Status *</label>
 		  <div class="col-md-4"> 
 		    <label class="radio-inline" for="status-0">
-		      <input name="status" id="status-0" value="active" checked="checked" type="radio">
-		      activate
+		      <form:radiobutton name="enabled" path="enabled" value="true" />Activate
 		    </label> 
 		    <label class="radio-inline" for="status-1">
-		      <input name="status" id="status-1" value="deactivate" type="radio">
-		      deactivate
+		      <form:radiobutton name="enabled" path="enabled" value="false" />Dectivate
 		    </label>
 		  </div>
+		  <form:errors path="enabled" cssClass="alert-danger"></form:errors>
 		</div>	
 		
 		<!-- Button -->
@@ -120,6 +126,6 @@
 		  </div>
 		</div>		
 		</fieldset>
-	</form>
+	</form:form>
 
 </div>

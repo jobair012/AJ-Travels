@@ -25,24 +25,23 @@
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-2 control-label" for="name">Name</label>
+				<label class="col-md-2 control-label" for="name">Name Or Username</label>
 				<div class="col-md-6">
-					<input id="name" name="name" placeholder="Name"
-						class="form-control input-md" type="text">
+					<input id="username" name="username" placeholder="Name Or Username"
+						class="form-control input-md" type="text" onkeyup="javascript:getAllNameWithUsername();">
 
 				</div>
 			</div>
 
 			<!-- Text input-->
-			<div class="form-group">
-				<label class="col-md-2 control-label" for="partyId">Client
-					ID</label>
+			<!-- <div class="form-group">
+				<label class="col-md-2 control-label" for="partyId">Username</label>
 				<div class="col-md-6">
-					<input id="partyId" name="partyId" placeholder="Client ID"
+					<input id="username" name="username" placeholder="Username" onkeyup="javascript:getAllUsername();"
 						class="form-control input-md" type="text">
 
 				</div>
-			</div>
+			</div> -->
 
 			<!-- Text input-->
 			<div class="form-group">
