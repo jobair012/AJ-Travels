@@ -1,8 +1,10 @@
 package team.fibonacci.aj_travels.service;
 
 import java.sql.Timestamp;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,69 +23,82 @@ public class UserService {
 	private UserDao userDao;
 	
 	@Autowired
-	private UserDetailDao userDetailDao;
+	private UserDetailDao userDetailDao;	
 	
-	
-	public void userCreationOrModification(HttpServletRequest request){
-		User user = createOrUpdateUser(request);
-		createUserDetail(request, user);		
+	public Boolean isDuplicateUsername(String username){
+		
+		return userDao.checkDuplicateUsername(username);
 	}
-	
-	public User createOrUpdateUser(HttpServletRequest request) {
+
+	public List<Map<String, Object>> getAllNameList() {
 		
-		User user = new User();
-				
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String status = request.getParameter("status");
-		String role = request.getParameter("role");
-		String action = request.getParameter("action");		
-		String lastUpdatedBy = request.getUserPrincipal().getName();				
-		Timestamp lastUpdatedStamp = new Timestamp(new java.util.Date().getTime());
+		List<User> userList = userDao.getUserList();
 		
-		Boolean enabled = status.equals("deactivate") ? false : true;	
+		List<Map<String, Object>> jsonUserList = new ArrayList<Map<String, Object>>();
 		
-		if(action.equals("create")){
-			user.setCreatedBy(lastUpdatedBy);
-			user.setCreatedStamp(lastUpdatedStamp);
+		for(User user : userList){
+			Map<String, Object> mapData = new HashMap<String, Object>();
+			
+			mapData.put("label", user.getUsername());
+			
+			jsonUserList.add(mapData);
 		}
 		
-		user.setUsername(username);
-		user.setPassword(password);
-		user.setEnabled(enabled);
-		user.setRole(role);		
-		user.setLastUpdatedBy(lastUpdatedBy);
-		user.setLastUpdatedStamp(lastUpdatedStamp);
-			
-		userDao.saveOrUpdateUser(user);
+		return jsonUserList;
+	}
+
+	public List<Map<String, Object>> getNameAndUsernameList() {
 		
-		return user;		
+		List<UserDetail> userList = userDetailDao.getUserDetailList();	
+		System.out.println(userList.get(0));
+		List<Map<String, Object>> nameAndUsernameList = new ArrayList<Map<String, Object>>();
+	
+		for(UserDetail user : userList){
+			Map<String, Object> mapData = new HashMap<String, Object>();
+			
+			mapData.put("label", user.getName()+" ("+user.getUsername()+")");
+			mapData.put("value", user.getUsername());
+			
+			nameAndUsernameList.add(mapData);
+		}
+		
+		return nameAndUsernameList;
+	}
+
+	public void create(User user, String createdBy) {
+		
+		UserDetail userDetail = user.getUserDetail();
+		Timestamp lastUpdatedStamp = new Timestamp(new java.util.Date().getTime());
+
+		userDetail.setUsername(user.getUsername());
+		userDetail.setCreatedBy(createdBy);
+		userDetail.setLastUpdatedBy(createdBy);
+		userDetail.setCreatedStamp(lastUpdatedStamp);
+		userDetail.setLastUpdatedStamp(lastUpdatedStamp);
+				
+		user.setCreatedBy(createdBy);
+		user.setLastUpdatedBy(createdBy);
+		user.setCreatedStamp(lastUpdatedStamp);
+		user.setLastUpdatedStamp(lastUpdatedStamp);
+		user.setUserDetail(userDetail);
+		
+		userDao.saveOrUpdateUser(user);
 	}
 	
-	public void createUserDetail(HttpServletRequest request, User user){
+	public void update(User user, String updatedBy) {
 		
-		UserDetail userDetail = new UserDetail();
-		
-		String name = request.getParameter("name");
-		String email = request.getParameter("email");
-		String phoneNo = request.getParameter("phoneNo");	
-		String action = request.getParameter("action");		
-		String lastUpdatedBy = request.getUserPrincipal().getName();				
+		UserDetail userDetail = user.getUserDetail();
 		Timestamp lastUpdatedStamp = new Timestamp(new java.util.Date().getTime());
-		
-		if(action.equals("create")){
-			userDetail.setCreatedBy(lastUpdatedBy);
-			userDetail.setCreatedStamp(lastUpdatedStamp);
-		}		
-		
-		userDetail.setUser(user);
-		userDetail.setName(name);
-		userDetail.setEmail(email);
-		userDetail.setPhoneNo(phoneNo);
-		userDetail.setLastUpdatedBy(lastUpdatedBy);
+
+		userDetail.setUsername(user.getUsername());
+		userDetail.setLastUpdatedBy(updatedBy);
 		userDetail.setLastUpdatedStamp(lastUpdatedStamp);
+				
+		user.setLastUpdatedBy(updatedBy);
+		user.setLastUpdatedStamp(lastUpdatedStamp);
+		user.setUserDetail(userDetail);
 		
-		userDetailDao.saveOrUpdateUserDetail(userDetail);
+		userDao.saveOrUpdateUser(user);
 	}
 
 }
