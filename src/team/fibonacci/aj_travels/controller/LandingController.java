@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value="/")
 public class LandingController {
-
+	
 	@RequestMapping(value={"", "/login"}, method=RequestMethod.GET)
 	public ModelAndView showHome(HttpServletRequest request){
 		
@@ -18,10 +18,9 @@ public class LandingController {
 		
 		if(request.getUserPrincipal() != null){
 			return new ModelAndView("redirect:/dashboard");
-		}
+		}		
 		
-		
-		return model; 
-		
+		return model; 		
 	}
+
 }

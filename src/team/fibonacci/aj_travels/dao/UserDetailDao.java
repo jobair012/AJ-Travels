@@ -1,5 +1,7 @@
 package team.fibonacci.aj_travels.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +24,13 @@ public class UserDetailDao {
 	public void saveOrUpdateUserDetail(UserDetail userDetail) {
 		
 		session().saveOrUpdate(userDetail);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<UserDetail> getUserDetailList(){
+ 
+		List<UserDetail> userDetailList = session().createCriteria(UserDetail.class).list();
+		
+		return userDetailList;		
 	}
 }
