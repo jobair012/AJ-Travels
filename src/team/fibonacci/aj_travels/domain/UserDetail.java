@@ -2,14 +2,13 @@ package team.fibonacci.aj_travels.domain;
 
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,20 +16,21 @@ import org.springframework.stereotype.Component;
 public class UserDetail {
 
 	@Id
-	@GeneratedValue
-	private Long userDetailId;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "username")
-	private User user;
+	@Column(length = 20)
+	@Size(min=3, max=20)
+	private String username;
 
 	@Column(nullable = false, length = 45)
+	@Size(min=3, max=45)
 	private String name;
 
 	@Column(nullable = false, length = 45)
+	@Email
+	@NotBlank
 	private String email;
 
 	@Column(nullable = false, length = 45)
+	@NotBlank
 	private String phoneNo;
 
 	@Column(length = 45)
@@ -79,23 +79,11 @@ public class UserDetail {
 	}
 
 	public String getUsername() {
-		return user.getUsername();
+		return username;
 	}
 
-	public Long getUserDetailId() {
-		return userDetailId;
-	}
-
-	public void setUserDetailId(Long userDetailId) {
-		this.userDetailId = userDetailId;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getName() {

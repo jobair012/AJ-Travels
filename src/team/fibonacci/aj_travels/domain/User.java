@@ -2,10 +2,16 @@ package team.fibonacci.aj_travels.domain;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,16 +20,25 @@ public class User {
 
 	@Id
 	@Column(length = 20)
+	@Size(min=3, max=20)
 	private String username;
 
 	@Column(nullable = false)
+	@Size(min=3, max=20)
 	private String password;
 
 	@Column(nullable = false)
+	@NotBlank
 	private Boolean enabled;
 
 	@Column(nullable = false, length = 20)
+	@NotBlank
 	private String role;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	@Valid
+	private UserDetail userDetail;
 
 	@Column(length = 45)
 	private String createdBy;
@@ -54,11 +69,11 @@ public class User {
 		this.password = password;
 	}
 
-	public boolean isEnabled() {
+	public Boolean getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
 
@@ -70,12 +85,12 @@ public class User {
 		this.role = role;
 	}
 
-	public Boolean getEnabled() {
-		return enabled;
+	public UserDetail getUserDetail() {
+		return userDetail;
 	}
 
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
+	public void setUserDetail(UserDetail userDetail) {
+		this.userDetail = userDetail;
 	}
 
 	public String getCreatedBy() {
@@ -109,4 +124,5 @@ public class User {
 	public void setLastUpdatedStamp(Timestamp lastUpdatedStamp) {
 		this.lastUpdatedStamp = lastUpdatedStamp;
 	}
+
 }
