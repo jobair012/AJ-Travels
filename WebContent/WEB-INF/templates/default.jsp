@@ -20,13 +20,18 @@
     <!-- MetisMenu CSS -->
    	<link href="${pageContext.request.contextPath}/resources/lib/metisMenu/metisMenu.min.css" rel="stylesheet">		
 
-    <!-- Custom CSS -->
+    <!-- Theme CSS -->
    	<link href="${pageContext.request.contextPath}/resources/aj_travels/css/theme.min.css" rel="stylesheet">		
 
     <!-- Custom Fonts -->
 	<link href="${pageContext.request.contextPath}/resources/lib/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
-
-
+	
+	 <!-- Jquery UI CSS -->
+	<link href="${pageContext.request.contextPath}/resources/lib/jquery-ui-1.12.0/jquery-ui.min.css" rel="stylesheet">
+	
+	<!-- Theme CSS -->
+   	<link href="${pageContext.request.contextPath}/resources/aj_travels/css/custome.css" rel="stylesheet">		
+	
 </head>
 
 <body>
@@ -47,6 +52,12 @@
    	
    	<!-- Custom Theme JavaScript -->
    	<script src="${pageContext.request.contextPath}/resources/aj_travels/js/theme.min.js"></script>
+   	
+   	<!-- Jquery UI -->
+	<script src="${pageContext.request.contextPath}/resources/lib/jquery-ui-1.12.0/jquery-ui.min.js"></script>
+	
+   	<!-- Custom JavaScript -->
+   	<script src="${pageContext.request.contextPath}/resources/aj_travels/js/custome.js"></script>
 	
 </body>
 
