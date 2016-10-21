@@ -1,0 +1,9 @@
+#userExists{
+	display: none;
+	color: red;
+}
+
+#passwordMismatch{
+	display: none;
+	color: red;
+}
