@@ -29,6 +29,12 @@
 	 <!-- Jquery UI CSS -->
 	<link href="${pageContext.request.contextPath}/resources/lib/jquery-ui-1.12.0/jquery-ui.min.css" rel="stylesheet">
 	
+	 <!-- Datatables CSS -->
+	<link href="${pageContext.request.contextPath}/resources/lib/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+	
+	 <!-- Datatables Responsive CSS -->
+	<link href="${pageContext.request.contextPath}/resources/lib/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+	
 	<!-- Theme CSS -->
    	<link href="${pageContext.request.contextPath}/resources/aj_travels/css/custome.css" rel="stylesheet">		
 	
@@ -55,6 +61,15 @@
    	
    	<!-- Jquery UI -->
 	<script src="${pageContext.request.contextPath}/resources/lib/jquery-ui-1.12.0/jquery-ui.min.js"></script>
+		
+	<!-- Jquery Datatables -->
+	<script src="${pageContext.request.contextPath}/resources/lib/datatables/js/jquery.dataTables.min.js"></script>
+	
+	<!-- Datatables Bootstrap-->
+	<script src="${pageContext.request.contextPath}/resources/lib/datatables-plugins/dataTables.bootstrap.min.js"></script>
+	
+	<!-- Datatables Responsive-->
+	<script src="${pageContext.request.contextPath}/resources/lib/datatables-responsive/dataTables.responsive.js"></script>
 	
    	<!-- Custom JavaScript -->
    	<script src="${pageContext.request.contextPath}/resources/aj_travels/js/custome.js"></script>

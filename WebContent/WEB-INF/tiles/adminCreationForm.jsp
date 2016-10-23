@@ -48,7 +48,7 @@
 		<div class="form-group">
 		  <label class="col-md-2 control-label" for="phoneNo">Contact No. *</label>
 		  <div class="col-md-6">
-		  	<form:input id="phoneNo" name="phoneNo" placeholder="Contact No." class="form-control input-md" type="text"  path="userDetail.phoneNo"/>
+		  	<form:input id="phoneNo" name="phoneNo" placeholder="Contact No." class="form-control input-md" type="tel"  path="userDetail.phoneNo"/>
 		    <form:errors path="userDetail.phoneNo" cssClass="alert-danger"></form:errors>
 		  </div>
 		</div>

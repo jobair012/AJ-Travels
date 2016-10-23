@@ -17,7 +17,7 @@
 	
 	<br />
 
-	<form class="form-horizontal">
+	<form class="form-horizontal" id="userSearchForm">
 		<fieldset>
 
 			<!-- Form Name -->
@@ -27,7 +27,7 @@
 			<div class="form-group">
 				<label class="col-md-2 control-label" for="name">Name Or Username</label>
 				<div class="col-md-6">
-					<input id="username" name="username" placeholder="Name Or Username"
+					<input id="username" name="username" placeholder="Name Or Username" value=""
 						class="form-control input-md" type="text" onkeyup="javascript:getAllNameWithUsername();">
 
 				</div>
@@ -48,7 +48,7 @@
 				<label class="col-md-2 control-label" for="fromDate">From
 					Date</label>
 				<div class="col-md-6">
-					<input id="fromDate" name="fromDate" placeholder="YYYY-MM-DD"
+					<input id="fromDate" class="datepicker" name="fromDate" placeholder="YYYY-MM-DD"
 						class="form-control input-md" type="text">
 
 				</div>
@@ -58,7 +58,7 @@
 			<div class="form-group">
 				<label class="col-md-2 control-label" for="toDate">To Date</label>
 				<div class="col-md-6">
-					<input id="toDate" name="toDate" placeholder="YYYY-MM-DD"
+					<input id="toDate" class="datepicker" name="toDate" placeholder="YYYY-MM-DD"
 						class="form-control input-md" type="text">
 
 				</div>
@@ -68,7 +68,7 @@
 			<div class="form-group">
 				<label class="col-md-2 control-label" for="search"></label>
 				<div class="col-md-6">
-					<button id="search" name="search" class="btn btn-primary">Search</button>
+					<input type="button" id="search" name="search" class="btn btn-primary" value="Search" onclick="javascript:submitUserSearchForm();"/>					
 				</div>
 			</div>
 
@@ -77,4 +77,5 @@
 	
 	<hr/>
 
+	<div id="userSearchResult">This is Search Page</div>
 </div>
