@@ -2,6 +2,10 @@
  * 
  */
 
+$(document).ready(function(){
+	$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+});
+
 function checkPasswordMatch() {
 	var password = $("#password").val();
 	var confirmPassword = $("#confirmPassword").val();
@@ -75,11 +79,27 @@ function getAllNameWithUsername() {
 		type : "GET",
 		success : function(data) {
 			$("#username").autocomplete({
-				source : data,
+				source : data
 			});
 		},
 		error : function(data) {
 			alert("Something went wrong !");
+		}
+	});
+}
+
+function submitUserSearchForm(){	
+	
+	var username = $("#username").val();
+	var fromDate = $("#fromDate").val();
+	var toDate = $("#toDate").val();
+	
+	$.ajax({
+		url : "admin/doSearchUser",
+		type : "GET",
+		data : { "username" : username, "fromDate" : fromDate, "toDate" : toDate },
+		success : function(data){
+			$("#userSearchResult").html(data);
 		}
 	});
 }
