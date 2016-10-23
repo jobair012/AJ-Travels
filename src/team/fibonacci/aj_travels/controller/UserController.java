@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import team.fibonacci.aj_travels.domain.User;
-import team.fibonacci.aj_travels.domain.UserDetail;
-import team.fibonacci.aj_travels.domain.UserRole;
 import team.fibonacci.aj_travels.service.UserRoleService;
 import team.fibonacci.aj_travels.service.UserService;
 

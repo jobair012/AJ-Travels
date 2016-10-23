@@ -1,9 +1,12 @@
 package team.fibonacci.aj_travels.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +56,26 @@ public class UserDao {
 		Boolean existance = user.isEmpty() ? false : true;
 		
 		return existance;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<User> getSearchResult(String username, Timestamp fromTimestamp, Timestamp toTimestamp) {
+		
+		Criteria criteria = session().createCriteria(User.class);
+		
+		if(!username.isEmpty())
+		criteria.add(Restrictions.eq("username", username));
+		
+		if(fromTimestamp != null){
+			criteria.add(Restrictions.ge("createdStamp", fromTimestamp));
+		}
+		
+		if(toTimestamp != null){
+			criteria.add(Restrictions.le("createdStamp", toTimestamp));
+		}
+		
+		criteria.addOrder(Order.desc("createdStamp"));
+		
+		return criteria.list();
 	}
 }

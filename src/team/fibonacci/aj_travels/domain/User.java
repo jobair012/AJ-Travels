@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -28,7 +29,7 @@ public class User {
 	private String password;
 
 	@Column(nullable = false)
-	@NotBlank
+	@NotNull
 	private Boolean enabled;
 
 	@Column(nullable = false, length = 20)

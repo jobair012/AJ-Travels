@@ -1,6 +1,7 @@
 package team.fibonacci.aj_travels.service;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import team.fibonacci.aj_travels.dao.UserDao;
 import team.fibonacci.aj_travels.dao.UserDetailDao;
@@ -99,6 +101,23 @@ public class UserService {
 		user.setUserDetail(userDetail);
 		
 		userDao.saveOrUpdateUser(user);
+	}
+
+	public List<User> getSearchResult(String username, String fromDate, String toDate) throws ParseException {
+		
+		Timestamp fromTimestamp = null;
+		if(!ObjectUtils.isEmpty(fromDate)){			
+			fromTimestamp = CommonService.getTimestampFromString(fromDate);
+		}
+		
+		Timestamp toTimestamp = null;
+		if(!ObjectUtils.isEmpty(toDate)){
+			toTimestamp = CommonService.getTimestampFromString(toDate);
+		}
+				
+		List<User> searchResult = userDao.getSearchResult(username, fromTimestamp, toTimestamp);
+		
+		return searchResult;
 	}
 
 }
