@@ -1,7 +1,7 @@
 package team.fibonacci.aj_travels.dao;
 
-import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import team.fibonacci.aj_travels.domain.User;
 
@@ -59,23 +60,50 @@ public class UserDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<User> getSearchResult(String username, Timestamp fromTimestamp, Timestamp toTimestamp) {
+	public List<User> getSearchResult(Map<String, Object> searchParameters) {
 		
 		Criteria criteria = session().createCriteria(User.class);
 		
-		if(!username.isEmpty())
-		criteria.add(Restrictions.eq("username", username));
-		
-		if(fromTimestamp != null){
-			criteria.add(Restrictions.ge("createdStamp", fromTimestamp));
+		if(!ObjectUtils.isEmpty(searchParameters.get("username")) ){
+			criteria.add(Restrictions.eq("username", searchParameters.get("username")));
+		}
+				
+		if(!ObjectUtils.isEmpty(searchParameters.get("fromDate"))){
+			criteria.add(Restrictions.ge("createdStamp", searchParameters.get("fromDate")));
 		}
 		
-		if(toTimestamp != null){
-			criteria.add(Restrictions.le("createdStamp", toTimestamp));
+		if(!ObjectUtils.isEmpty(searchParameters.get("toDate"))){
+			criteria.add(Restrictions.le("createdStamp", searchParameters.get("toDate")));
+		}
+		
+		if(!ObjectUtils.isEmpty(searchParameters.get("start"))){
+			criteria.setFirstResult(Integer.valueOf(searchParameters.get("start").toString()));
 		}
 		
 		criteria.addOrder(Order.desc("createdStamp"));
 		
-		return criteria.list();
+		return criteria.list();		
+	}
+	
+	public Long totalNumberOfRecords(Map<String, Object> searchParameters){
+		
+
+		Criteria criteria = session().createCriteria(User.class);
+		
+		if(!ObjectUtils.isEmpty(searchParameters.get("username")) ){
+			criteria.add(Restrictions.eq("username", searchParameters.get("username")));
+		}
+				
+		if(!ObjectUtils.isEmpty(searchParameters.get("fromDate"))){
+			criteria.add(Restrictions.ge("createdStamp", searchParameters.get("fromDate")));
+		}
+		
+		if(!ObjectUtils.isEmpty(searchParameters.get("toDate"))){
+			criteria.add(Restrictions.le("createdStamp", searchParameters.get("toDate")));
+		}
+		
+		criteria.setProjection(Projections.rowCount());
+		
+		return (Long) criteria.uniqueResult();	
 	}
 }

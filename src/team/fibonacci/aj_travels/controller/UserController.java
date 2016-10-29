@@ -25,7 +25,7 @@ public class UserController {
 	@Autowired
 	private UserRoleService userRoleService;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value={"", "/search"}, method = RequestMethod.GET)
 	public ModelAndView showAdminPage() {
 
 		ModelAndView model = new ModelAndView("admin");

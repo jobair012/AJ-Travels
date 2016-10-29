@@ -52,7 +52,7 @@ public class UserService {
 	public List<Map<String, Object>> getNameAndUsernameList() {
 		
 		List<UserDetail> userList = userDetailDao.getUserDetailList();	
-		System.out.println(userList.get(0));
+		
 		List<Map<String, Object>> nameAndUsernameList = new ArrayList<Map<String, Object>>();
 	
 		for(UserDetail user : userList){
@@ -103,21 +103,59 @@ public class UserService {
 		userDao.saveOrUpdateUser(user);
 	}
 
-	public List<User> getSearchResult(String username, String fromDate, String toDate) throws ParseException {
+	public List<User> getSearchResult(Map<String, Object> searchParameters) throws ParseException {
 		
 		Timestamp fromTimestamp = null;
-		if(!ObjectUtils.isEmpty(fromDate)){			
-			fromTimestamp = CommonService.getTimestampFromString(fromDate);
+		if(!ObjectUtils.isEmpty(searchParameters.get("fromDate"))){			
+			fromTimestamp = CommonService.getTimestampFromString(searchParameters.get("fromDate").toString());
+			searchParameters.put("fromDate", fromTimestamp);
 		}
 		
 		Timestamp toTimestamp = null;
-		if(!ObjectUtils.isEmpty(toDate)){
-			toTimestamp = CommonService.getTimestampFromString(toDate);
+		if(!ObjectUtils.isEmpty(searchParameters.get("toDate"))){
+			toTimestamp = CommonService.getTimestampFromString(searchParameters.get("toDate").toString());
+			searchParameters.put("toDate", toTimestamp);
 		}
 				
-		List<User> searchResult = userDao.getSearchResult(username, fromTimestamp, toTimestamp);
+		List<User> searchResult = userDao.getSearchResult(searchParameters);
 		
 		return searchResult;
 	}
-
+	
+	public Long totalNumberOfRecords(Map<String, Object> searchParameters) throws ParseException {
+		
+		Timestamp fromTimestamp = null;
+		if(!ObjectUtils.isEmpty(searchParameters.get("fromDate"))){			
+			fromTimestamp = CommonService.getTimestampFromString(searchParameters.get("fromDate").toString());
+			searchParameters.put("fromDate", fromTimestamp);
+		}
+		
+		Timestamp toTimestamp = null;
+		if(!ObjectUtils.isEmpty(searchParameters.get("toDate"))){
+			toTimestamp = CommonService.getTimestampFromString(searchParameters.get("toDate").toString());
+			searchParameters.put("toDate", toTimestamp);
+		}		
+		
+		return userDao.totalNumberOfRecords(searchParameters);
+	}
+	
+	public List<User> getUserListBasedOnSearchToken(String token, List<User> userList) {
+		
+		if (null != token && !token.equals("")) {
+			List<User> searchResult = new ArrayList<User>();
+			token = token.toUpperCase();
+			for (User user : userList) {
+				if (user.getUsername().toUpperCase().indexOf(token)!= -1 || user.getRole().toUpperCase().indexOf(token)!= -1
+						|| user.getEnabled().toString().toUpperCase().indexOf(token)!= -1 || user.getUserDetail().getName().toUpperCase().indexOf(token)!= -1
+						|| user.getUserDetail().getPhoneNo().toUpperCase().indexOf(token)!= -1 ) {
+					searchResult.add(user);					
+				}
+				
+			}
+			userList = searchResult;
+			searchResult = null;
+		}
+		
+		return userList;
+	}
 }

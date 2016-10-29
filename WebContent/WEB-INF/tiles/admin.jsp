@@ -24,45 +24,42 @@
 			<legend>Search Form</legend>
 
 			<!-- Text input-->
-			<div class="form-group">
+			<div class="form-group has-feedback">
 				<label class="col-md-2 control-label" for="name">Name Or Username</label>
 				<div class="col-md-6">
 					<input id="username" name="username" placeholder="Name Or Username" value=""
 						class="form-control input-md" type="text" onkeyup="javascript:getAllNameWithUsername();">
-
+					<span class="form-control-feedback">
+				        <i class="fa fa-user"></i>
+				    </span>
 				</div>
 			</div>
 
 			<!-- Text input-->
-			<!-- <div class="form-group">
-				<label class="col-md-2 control-label" for="partyId">Username</label>
-				<div class="col-md-6">
-					<input id="username" name="username" placeholder="Username" onkeyup="javascript:getAllUsername();"
-						class="form-control input-md" type="text">
-
-				</div>
-			</div> -->
-
-			<!-- Text input-->
-			<div class="form-group">
+			<div class="form-group has-feedback">
 				<label class="col-md-2 control-label" for="fromDate">From
 					Date</label>
 				<div class="col-md-6">
-					<input id="fromDate" class="datepicker" name="fromDate" placeholder="YYYY-MM-DD"
-						class="form-control input-md" type="text">
-
+					<input id="fromDate"  name="fromDate" placeholder="YYYY-MM-DD"
+						class="form-control input-md datepicker" type="text">
+					<span class="form-control-feedback">
+				        <i class="fa fa-calendar"></i>
+				    </span>
 				</div>
 			</div>
 
 			<!-- Text input-->
-			<div class="form-group">
+			<div class="form-group has-feedback">
 				<label class="col-md-2 control-label" for="toDate">To Date</label>
 				<div class="col-md-6">
-					<input id="toDate" class="datepicker" name="toDate" placeholder="YYYY-MM-DD"
-						class="form-control input-md" type="text">
-
+					<input id="toDate" name="toDate" placeholder="YYYY-MM-DD"
+						class="form-control input-md datepicker" type="text">
+					<span class="form-control-feedback">
+				        <i class="fa fa-calendar"></i>
+				    </span>
 				</div>
 			</div>
+						
 
 			<!-- Button -->
 			<div class="form-group">
@@ -77,5 +74,6 @@
 	
 	<hr/>
 
-	<div id="userSearchResult">This is Search Page</div>
+	<!-- <div id="userSearchResult">This is Search Page</div> -->
+	<jsp:include page="userSearchResult.jsp"></jsp:include>
 </div>

@@ -71,6 +71,9 @@
 	<!-- Datatables Responsive-->
 	<script src="${pageContext.request.contextPath}/resources/lib/datatables-responsive/dataTables.responsive.js"></script>
 	
+	<!-- Datatables Paging Info -->
+	<script src="${pageContext.request.contextPath}/resources/common/js/fnPagingInfo.js"></script>
+	
    	<!-- Custom JavaScript -->
    	<script src="${pageContext.request.contextPath}/resources/aj_travels/js/custome.js"></script>
 	

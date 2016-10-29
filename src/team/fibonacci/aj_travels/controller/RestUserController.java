@@ -1,6 +1,7 @@
 package team.fibonacci.aj_travels.controller;
 
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import team.fibonacci.aj_travels.dao.UserDao;
 import team.fibonacci.aj_travels.domain.User;
@@ -57,20 +60,31 @@ public class RestUserController {
 		return userList;
 	}
 	
-	@RequestMapping(value = "doSearchUser", method=RequestMethod.GET)
+	@RequestMapping(value = "doSearchUser", method=RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public ModelAndView doSearch(HttpServletRequest request, HttpServletResponse response) throws ParseException{
+	public String doSearch(HttpServletRequest request, HttpServletResponse response) throws ParseException, JsonProcessingException{
+				
+		ObjectMapper mapper = new ObjectMapper();		
+		String token = request.getParameter("search[value]");
 		
-		ModelAndView model = new ModelAndView("userSearchResult");
+		Map<String, Object> searchParameters = new HashMap<String, Object>();
+		searchParameters.put("username", request.getParameter("username"));
+		searchParameters.put("fromDate", request.getParameter("fromDate"));
+		searchParameters.put("toDate", request.getParameter("toDate"));
+		searchParameters.put("length", request.getParameter("length"));
+		searchParameters.put("start", request.getParameter("start"));
 		
-		String username = request.getParameter("username");
-		String fromDate = request.getParameter("fromDate");
-		String toDate = request.getParameter("toDate");
+		List<User> searchResult = userService.getSearchResult(searchParameters);
 		
-		List<User> searchResult = userService.getSearchResult(username, fromDate, toDate);
+		searchResult = userService.getUserListBasedOnSearchToken(token, searchResult);
 		
-		model.addObject("searchResult", searchResult);
+		Map<String, Object> mapData = new HashMap<String, Object>();
+		mapData.put("aaData", searchResult);
+		mapData.put("iTotalRecords", userService.totalNumberOfRecords(searchParameters));
+		mapData.put("iTotalDisplayRecords", searchResult.size());
 		
-		return model;
+		String searchResultPrettyString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapData);
+		
+		return searchResultPrettyString;
 	}
 }
