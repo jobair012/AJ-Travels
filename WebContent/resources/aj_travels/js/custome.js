@@ -39,7 +39,7 @@ function checkDuplicateUsername() {
 	var username = $("#username").val();
 
 	$.ajax({
-		url : "checkDuplicateUsername",
+		url : "/aj_travels/admin/checkDuplicateUsername",
 		type : "GET",
 		data : {
 			"username" : username
@@ -59,7 +59,7 @@ function checkDuplicateUsername() {
 function getAllUsername() {
 	
 	$.ajax({
-		url : "admin/getAllUsername",
+		url : "/aj_travels/admin/getAllUsername",
 		type : "GET",
 		success : function(data) {
 			$("#username").autocomplete({
@@ -75,7 +75,7 @@ function getAllUsername() {
 function getAllNameWithUsername() {
 	
 	$.ajax({
-		url : "admin/getNameAndUsernameList",
+		url : "/aj_travels/admin/getNameAndUsernameList",
 		type : "GET",
 		success : function(data) {
 			$("#username").autocomplete({
@@ -88,18 +88,38 @@ function getAllNameWithUsername() {
 	});
 }
 
-function submitUserSearchForm(){	
+function submitUserSearchForm(){
+	
+	userSearchPagination();
+}
+
+function userSearchPagination(){
 	
 	var username = $("#username").val();
 	var fromDate = $("#fromDate").val();
 	var toDate = $("#toDate").val();
 	
-	$.ajax({
-		url : "admin/doSearchUser",
-		type : "GET",
-		data : { "username" : username, "fromDate" : fromDate, "toDate" : toDate },
-		success : function(data){
-			$("#userSearchResult").html(data);
-		}
-	});
+	$("#usersPagination").dataTable( {
+		"destroy" : true,
+		"ordering": false,
+        "bProcessing" : true,
+        "bServerSide" : true,
+        "sort" : "position",
+        "bStateSave" : true,
+        "responsive" : true,
+        "iDisplayStart" : 0,
+        "fnDrawCallback" : function () {
+        },         
+        ajax:  {
+	    	url : "/aj_travels/admin/doSearchUser",
+	        type : "POST",
+	        data : { "username" : username, "fromDate" : fromDate, "toDate" : toDate }, 		
+        },
+        "aoColumns": [
+	      { "mData": "username" },
+	      { "mData": "userDetail.name" },                     
+	      { "mData": "enabled" },
+	      { "mData": "role" },                      
+	    ]       
+    });
 }
