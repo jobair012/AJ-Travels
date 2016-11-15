@@ -6,16 +6,13 @@
 	<definition name="aj_travels.base" template="/WEB-INF/templates/default.jsp">
 	
 		<put-attribute name="title" value="AJ-Tours &amp; Travels" />
-
 		<put-attribute name="headerAndSidebar" value="/WEB-INF/tiles/headerAndSidebar.jsp" />
 		<put-attribute name="content" value="/WEB-INF/tiles/content.jsp" />
 	
 	</definition>
 	
-	<definition name="aj_travels.blank" template="/WEB-INF/templates/blank.jsp">
-	
-		<put-attribute name="content" value="/WEB-INF/tiles/content.jsp" />
-	
+	<definition name="aj_travels.blank" template="/WEB-INF/templates/blank.jsp">	
+		<put-attribute name="content" value="/WEB-INF/tiles/content.jsp" />	
 	</definition>
 	
 	<definition name="landingPage" template="/WEB-INF/pages/landingPage.jsp">
@@ -25,17 +22,31 @@
 		<put-attribute name="title" value="AJ-Tours &amp; Travels - Dashboard" />
 	</definition>
 	
+	<!-- VIEW MAPPINGS FOR USER -->
 	<definition name="admin" extends="aj_travels.base">
 		<put-attribute name="title" value="AJ-Tours &amp; Travels - Administrative" />
-		<put-attribute name="content" value="/WEB-INF/tiles/admin.jsp" />
+		<put-attribute name="content" value="/WEB-INF/tiles/user/admin.jsp" />
 	</definition>
 	
 	<definition name="adminCreationForm" extends="aj_travels.base">
 		<put-attribute name="title" value="AJ-Tours &amp; Travels - Admin Creation Form" />
-		<put-attribute name="content" value="/WEB-INF/tiles/adminCreationForm.jsp" />
+		<put-attribute name="content" value="/WEB-INF/tiles/user/adminCreationForm.jsp" />
 	</definition>
 	
 	<definition name="userSearchResult" extends="aj_travels.blank">		
-		<put-attribute name="content" value="/WEB-INF/tiles/userSearchResult.jsp" />
+		<put-attribute name="content" value="/WEB-INF/tiles/user/userSearchResult.jsp" />
 	</definition>
+	
+	
+	<!-- VIEW MAPPINGS FOR PARTY -->
+	<definition name="partySearchForm" extends="aj_travels.base">
+		<put-attribute name="title" value="AJ-Tours &amp; Travels - Party" />
+		<put-attribute name="content" value="/WEB-INF/tiles/party/partySearchForm.jsp" />
+	</definition>
+	
+	<definition name="partyRegistrationForm" extends="aj_travels.base">
+		<put-attribute name="title" value="AJ-Tours &amp; Travels - Admin Creation Form" />
+		<put-attribute name="content" value="/WEB-INF/tiles/party/partyRegistrationForm.jsp" />
+	</definition>
+	
 </tiles-definitions>
