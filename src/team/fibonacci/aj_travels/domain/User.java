@@ -1,55 +1,49 @@
 package team.fibonacci.aj_travels.domain;
 
-import java.sql.Timestamp;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SelectBeforeUpdate;
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-public class User {
+@DynamicUpdate
+@SelectBeforeUpdate
+public class User extends CommonColumns {
 
 	@Id
 	@Column(length = 20)
-	@Size(min=3, max=20)
+	@Size(min = 3, max = 20)
 	private String username;
 
 	@Column(nullable = false)
-	@Size(min=3, max=20)
+	@Size(min = 3, max = 20)
 	private String password;
 
 	@Column(nullable = false)
 	@NotNull
 	private Boolean enabled;
 
-	@Column(nullable = false, length = 20)
-	@NotBlank
-	private String role;
+	@ManyToOne
+	@JoinColumn(name = "role")
+	@Valid
+	private UserRole userRole;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	@Valid
 	private UserDetail userDetail;
-
-	@Column(length = 45)
-	private String createdBy;
-
-	private Timestamp createdStamp;
-
-	@Column(length = 45)
-	private String lastUpdatedBy;
-
-	private Timestamp lastUpdatedStamp;
 
 	public User() {
 	}
@@ -78,14 +72,6 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
 	public UserDetail getUserDetail() {
 		return userDetail;
 	}
@@ -94,36 +80,12 @@ public class User {
 		this.userDetail = userDetail;
 	}
 
-	public String getCreatedBy() {
-		return createdBy;
+	public UserRole getUserRole() {
+		return userRole;
 	}
 
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public Timestamp getCreatedStamp() {
-		return createdStamp;
-	}
-
-	public void setCreatedStamp(Timestamp createdStamp) {
-		this.createdStamp = createdStamp;
-	}
-
-	public String getLastUpdatedBy() {
-		return lastUpdatedBy;
-	}
-
-	public void setLastUpdatedBy(String lastUpdatedBy) {
-		this.lastUpdatedBy = lastUpdatedBy;
-	}
-
-	public Timestamp getLastUpdatedStamp() {
-		return lastUpdatedStamp;
-	}
-
-	public void setLastUpdatedStamp(Timestamp lastUpdatedStamp) {
-		this.lastUpdatedStamp = lastUpdatedStamp;
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
 	}
 
 }

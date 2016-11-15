@@ -1,19 +1,21 @@
 package team.fibonacci.aj_travels.domain;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SelectBeforeUpdate;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-public class UserDetail {
+@DynamicUpdate(value=true)
+@SelectBeforeUpdate(value=true)
+public class UserDetail extends CommonColumns{
 
 	@Id
 	@Column(length = 20)
@@ -32,48 +34,6 @@ public class UserDetail {
 	@Column(nullable = false, length = 45)
 	@NotBlank
 	private String phoneNo;
-
-	@Column(length = 45)
-	private String createdBy;
-
-	private Timestamp createdStamp;
-
-	@Column(length = 45)
-	private String lastUpdatedBy;
-
-	private Timestamp lastUpdatedStamp;
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public Timestamp getCreatedStamp() {
-		return createdStamp;
-	}
-
-	public void setCreatedStamp(Timestamp createdStamp) {
-		this.createdStamp = createdStamp;
-	}
-
-	public String getLastUpdatedBy() {
-		return lastUpdatedBy;
-	}
-
-	public void setLastUpdatedBy(String lastUpdatedBy) {
-		this.lastUpdatedBy = lastUpdatedBy;
-	}
-
-	public Timestamp getLastUpdatedStamp() {
-		return lastUpdatedStamp;
-	}
-
-	public void setLastUpdatedStamp(Timestamp lastUpdatedStamp) {
-		this.lastUpdatedStamp = lastUpdatedStamp;
-	}
 
 	public UserDetail() {
 	}
