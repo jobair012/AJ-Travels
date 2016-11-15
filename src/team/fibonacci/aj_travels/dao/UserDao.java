@@ -1,5 +1,6 @@
 package team.fibonacci.aj_travels.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +46,7 @@ public class UserDao {
 
 	public void saveOrUpdateUser(User user) {
 		
-		session().saveOrUpdate(user);
+		session().saveOrUpdate(user);		
 	}
 	
 	
@@ -60,8 +61,9 @@ public class UserDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<User> getSearchResult(Map<String, Object> searchParameters) {
+	public Map<String, Object> getSearchResult(Map<String, Object> searchParameters) {
 		
+		Map<String, Object> result = new HashMap<String, Object>();
 		Criteria criteria = session().createCriteria(User.class);
 		
 		if(!ObjectUtils.isEmpty(searchParameters.get("username")) ){
@@ -75,35 +77,31 @@ public class UserDao {
 		if(!ObjectUtils.isEmpty(searchParameters.get("toDate"))){
 			criteria.add(Restrictions.le("createdStamp", searchParameters.get("toDate")));
 		}
+		
+		Integer size = criteria.list().size();
 		
 		if(!ObjectUtils.isEmpty(searchParameters.get("start"))){
 			criteria.setFirstResult(Integer.valueOf(searchParameters.get("start").toString()));
 		}
 		
+		if(!ObjectUtils.isEmpty(searchParameters.get("length"))){
+			criteria.setMaxResults(Integer.valueOf(searchParameters.get("length").toString()));
+		}
+		
 		criteria.addOrder(Order.desc("createdStamp"));
 		
-		return criteria.list();		
+		List<User> userList = criteria.list();
+		
+		result.put("size", size);		
+		result.put("result", userList);	
+		
+		return result;
 	}
 	
-	public Long totalNumberOfRecords(Map<String, Object> searchParameters){
-		
 
-		Criteria criteria = session().createCriteria(User.class);
+	public User getUserByUsername(String username) {
 		
-		if(!ObjectUtils.isEmpty(searchParameters.get("username")) ){
-			criteria.add(Restrictions.eq("username", searchParameters.get("username")));
-		}
-				
-		if(!ObjectUtils.isEmpty(searchParameters.get("fromDate"))){
-			criteria.add(Restrictions.ge("createdStamp", searchParameters.get("fromDate")));
-		}
-		
-		if(!ObjectUtils.isEmpty(searchParameters.get("toDate"))){
-			criteria.add(Restrictions.le("createdStamp", searchParameters.get("toDate")));
-		}
-		
-		criteria.setProjection(Projections.rowCount());
-		
-		return (Long) criteria.uniqueResult();	
+		User user = (User) session().get(User.class, username);
+		return user;
 	}
 }
