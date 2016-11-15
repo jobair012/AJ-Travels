@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import team.fibonacci.aj_travels.domain.User;
@@ -62,6 +63,17 @@ public class UserController {
 		}
 		
 		return new ModelAndView("redirect:/admin/create");
+	}
+	
+	@RequestMapping(value="/explore", method=RequestMethod.GET)
+	public ModelAndView exploreUser(@RequestParam("username") String username){
+			
+		ModelAndView model = new ModelAndView("adminCreationForm");
+		
+		model.addObject("user", userService.getUserByUsername(username));
+		model.addObject("userRole", userRoleService.getUserRoleMapData());
+		
+		return model;
 	}
 	
 }

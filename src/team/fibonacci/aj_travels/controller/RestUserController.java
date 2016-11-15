@@ -73,15 +73,16 @@ public class RestUserController {
 		searchParameters.put("toDate", request.getParameter("toDate"));
 		searchParameters.put("length", request.getParameter("length"));
 		searchParameters.put("start", request.getParameter("start"));
-		
-		List<User> searchResult = userService.getSearchResult(searchParameters);
+				
+		@SuppressWarnings("unchecked")
+		List<User> searchResult = (List<User>) userService.getSearchResult(searchParameters).get("result");
 		
 		searchResult = userService.getUserListBasedOnSearchToken(token, searchResult);
 		
 		Map<String, Object> mapData = new HashMap<String, Object>();
 		mapData.put("aaData", searchResult);
-		mapData.put("iTotalRecords", userService.totalNumberOfRecords(searchParameters));
-		mapData.put("iTotalDisplayRecords", searchResult.size());
+		mapData.put("iTotalRecords", userService.getSearchResult(searchParameters).get("size"));
+		mapData.put("iTotalDisplayRecords", userService.getSearchResult(searchParameters).get("size"));
 		
 		String searchResultPrettyString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapData);
 		
