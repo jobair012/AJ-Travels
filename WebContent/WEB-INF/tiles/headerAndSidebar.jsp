@@ -68,10 +68,10 @@
                             <a href="#"><i class="fa fa-users fa-fw"></i> Parties<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">Individuals</a>
+                                    <a href="${pageContext.request.contextPath}/party/create">Create Party</a>
                                 </li>
                                 <li>
-                                    <a href="#">Companies</a>
+                                    <a href="${pageContext.request.contextPath}/party/search">Manage Party</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -81,10 +81,10 @@
                             <a href="#"><i class="fa fa-empire fa-fw"></i> Administrative<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/admin/create">Create Admin</a>
+                                    <a href="${pageContext.request.contextPath}/admin/create">Create User</a>
                                 </li>
                                 <li>
-                                    <a href="#">Role Management</a>
+                                    <a href="${pageContext.request.contextPath}/admin/search">Manage User</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

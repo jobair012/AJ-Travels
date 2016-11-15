@@ -20,7 +20,7 @@
 							</div>
 						</div>
 					</div>
-					<a href="${pageContext.request.contextPath}/parties">
+					<a href="${pageContext.request.contextPath}/party">
 						<div class="panel-footer">
 							<span class="pull-left">Explore Parties</span> <span
 								class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

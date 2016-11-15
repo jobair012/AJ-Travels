@@ -86,14 +86,14 @@
 		<!-- Select Basic -->
 		<div class="form-group">
 		  <label class="col-md-2 control-label" for="selectbasic">Role *</label>
-		  <div class="col-md-4">
-		  	<form:select id="role" name="role" class="form-control"  path="role">
-		  		<option value="">Select Role</option>
+		  <div class="col-md-6">
+		  	<form:select id="role" name="role" class="form-control"  path="userRole.role">
+		  		<form:option value="">Select Role</form:option>
 		  		<c:forEach items="${userRole}" var="role">		  		
-		      		<option value="${role.value}">${role.label}</option>    		    
+		      		<form:option value="${role.value}">${role.label}</form:option>    		    
 		  		</c:forEach>
 		  	</form:select>	
-		  	<form:errors path="role" cssClass="alert-danger"></form:errors>	   
+		  	<form:errors path="userRole.role" cssClass="alert-danger"></form:errors>	   
 		  </div>
 		</div>
 		
