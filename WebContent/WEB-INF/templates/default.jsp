@@ -77,6 +77,9 @@
    	<!-- Custom JavaScript -->
    	<script src="${pageContext.request.contextPath}/resources/aj_travels/js/custome.js"></script>
 	
+	<!-- Party JavaScript -->
+   	<script src="${pageContext.request.contextPath}/resources/aj_travels/js/ajParty.js"></script>
+	
 </body>
 
 </html>
